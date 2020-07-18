@@ -5,6 +5,11 @@
     <div class="card" v-if="showCard">
       <h4><b>John Doe</b></h4>
       <p>Architect & Engineer</p>
+        <h4><b>John Doe</b></h4>
+      <p>Architect & Engineer</p>  <h4><b>John Doe</b></h4>
+      <p>Architect & Engineer</p>  <h4><b>John Doe</b></h4>
+      <p>Architect & Engineer</p>  <h4><b>John Doe</b></h4>
+      <p>Architect & Engineer</p>
     </div>
   </slide>
   <div>gdgfd</div>

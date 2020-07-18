@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
+
 function resolve(dir) {
   return path.join(__dirname, '.', dir);
 }
@@ -11,7 +12,9 @@ module.exports = {
   entry: './src/main.ts',
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: '[name].bundle.js',
+    filename: 'main.bundle.js',
+    library: 'smoothly',
+    libraryTarget:'umd'  
   },
   serve: {
     hotClient: true,
@@ -65,6 +68,7 @@ module.exports = {
   plugins: [
     // make sure to include the plugin for the magic
     new VueLoaderPlugin(),
+    // new EsmWebpackPlugin() // To build as esm
   ],
 };
 

@@ -1,2 +1,3 @@
-1. Slidee - Box sizing - Border Box
+1. Slide - Box sizing - Border Box
 2. Webpack serve
+3. padding

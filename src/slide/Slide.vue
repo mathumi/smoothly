@@ -31,43 +31,52 @@ export default class slide extends Vue {
   enter(el) {
     this.elHeight = el.clientHeight;
     el.style.height = 0;
+    el.style.display = 'none';
     let timing = this.elHeight / 1000;
     timing = timing >= 0.4 ? timing : 0.4;
     el.style.transition = `opacity ${timing}s, height ${timing}s`;
+    el.style.display = '';
     setTimeout(() => {
       el.style.height = this.elHeight;
-    });
+    }, 10);
   }
   // ------------------------------------------------------------------------------
   //  Reset values
   // ------------------------------------------------------------------------------
   afterEnter(el) {
     el.style.opacity = 1;
+    el.style.transition = '';
     window.setTimeout(() => {
       el.style.height = 'auto';
-    }, 400);
+    }, 100);
   }
 
   beforeLeave(el) {
     el.style.opacity = 0;
-  }
-
-  leave(el) {
     this.elHeight = el.clientHeight;
+    el.style.height =  this.elHeight;
     let timing = this.elHeight / 1000;
     timing = timing >= 0.4 ? timing : 0.4;
     el.style.transition = `opacity ${timing}s, height ${timing}s`;
-    el.style.height = 0;
   }
+
+  leave(el) {
+    setTimeout(()=>{
+       el.style.height = 0;
+    },10)
+  }
+  
 
   // ------------------------------------------------------------------------------
   //  Reset values
   // ------------------------------------------------------------------------------
   afterLeave(el) {
-    // window.setTimeout(() => {
-    //   el.style.height = 'auto';
-    //   el.style.opacity = 0;
-    // });
+    window.setTimeout(() => {
+      el.style.height = 'auto';
+      el.style.opacity = 0;
+      el.style.transition = '';
+      el.style.display = '';
+    });
   }
 }
 </script>
