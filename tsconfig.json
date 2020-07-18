@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": false,
+    "importHelpers": true,
+    "module": "esnext",
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "target": "esnext",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "paths": {
+    "@/*": ["src/*"],
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue",],
+  "exclude": ["node_modules"]
+}

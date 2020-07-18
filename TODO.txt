@@ -1,0 +1,2 @@
+1. Slidee - Box sizing - Border Box
+2. Webpack serve
