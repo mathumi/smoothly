@@ -19,14 +19,14 @@
     </div>
 
     <div class="">
-      <slide-height :list="true">
+      <translate :list="true" translateX="20px">
         <template v-if="showList">
           <div class="card" v-for="i in 5" :key="i"> <h4><b>John Doe{{i}}</b></h4>
             <p>Architect & Engineer</p>
             <h4><b>John Doe</b></h4>
             <p>Architect & Engineer</p></div>
         </template>
-      </slide-height>
+      </translate>
     </div>
 
     dajksdbja
@@ -40,6 +40,7 @@ import SlideHeight from './slide/SlideHeight.vue';
 import SlideWidth from './slide/SlideWidth.vue';
 import Scale from './slide/Scale.vue';
 import Fade from './slide/Fade.vue';
+import Translate from './slide/Translate.vue';
 
 @Component({
   name: 'App',
@@ -48,6 +49,7 @@ import Fade from './slide/Fade.vue';
     SlideWidth,
     Scale,
     Fade,
+    Translate
   },
 })
 export default class App extends Vue {
