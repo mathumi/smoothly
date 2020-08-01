@@ -16,66 +16,57 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component({
-  name: 'slide',
+  name: 'scale',
+  props: {
+    transformOrigin: {
+      type: String,
+      default: 'top center',
+    },
+  },
 })
-export default class slide extends Vue {
-  elHeight = 0;
+export default class Scale extends Vue {
+  transformOrigin!: string;
   timing = 0;
 
   beforeEnter(el) {
-    el.style.opacity = 0;
+    el.style.transform = 'scale(0)';
+    el.style.transition = `transform 0.5s ease`;
+    el.style.transformOrigin = this.transformOrigin;
   }
   // ------------------------------------------------------------------------------
-  //  Animate div from 0px to its height
+  //  Animate div from 0px to its width
   // ------------------------------------------------------------------------------
   enter(el) {
-    this.elHeight = el.clientHeight;
-    el.style.height = 0;
-    el.style.display = 'none';
-    let timing = this.elHeight / 1000;
-    timing = timing >= 0.4 ? timing : 0.4;
-    el.style.transition = `opacity ${timing}s, height ${timing}s`;
-    el.style.display = '';
+    let timing = 0.5;
     setTimeout(() => {
-      el.style.height = this.elHeight;
-    }, 10);
+      el.style.transform = 'scale(1)';
+    }, 20);
   }
   // ------------------------------------------------------------------------------
   //  Reset values
   // ------------------------------------------------------------------------------
   afterEnter(el) {
     el.style.opacity = 1;
-    el.style.transition = '';
-    window.setTimeout(() => {
-      el.style.height = 'auto';
-    }, 100);
   }
 
   beforeLeave(el) {
-    el.style.opacity = 0;
-    this.elHeight = el.clientHeight;
-    el.style.height =  this.elHeight;
-    let timing = this.elHeight / 1000;
-    timing = timing >= 0.4 ? timing : 0.4;
-    el.style.transition = `opacity ${timing}s, height ${timing}s`;
+    el.style.transform = 'scale(1)';
+    el.style.transition = `transform 0.5s ease`;
   }
 
   leave(el) {
-    setTimeout(()=>{
-       el.style.height = 0;
-    },10)
+    setTimeout(() => {
+      el.style.transform = 'scale(0)';
+    }, 10);
   }
-  
 
   // ------------------------------------------------------------------------------
   //  Reset values
   // ------------------------------------------------------------------------------
   afterLeave(el) {
     window.setTimeout(() => {
-      el.style.height = 'auto';
-      el.style.opacity = 0;
+      el.style.transform = '';
       el.style.transition = '';
-      el.style.display = '';
     });
   }
 }
