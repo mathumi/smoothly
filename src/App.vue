@@ -21,7 +21,10 @@
     <div class="">
       <slide-height :list="true">
         <template v-if="showList">
-          <div class="card" v-for="i in 5" :key="i">{{ i }}</div>
+          <div class="card" v-for="i in 5" :key="i"> <h4><b>John Doe{{i}}</b></h4>
+            <p>Architect & Engineer</p>
+            <h4><b>John Doe</b></h4>
+            <p>Architect & Engineer</p></div>
         </template>
       </slide-height>
     </div>
@@ -74,7 +77,7 @@ export default class App extends Vue {
   mounted() {
     setTimeout(() => {
       this.showList = true;
-    }, 2000);
+    }, 1000);
   }
 }
 </script>
@@ -83,7 +86,7 @@ export default class App extends Vue {
 .card {
   padding: 8px 16px;
   min-width: 80px;
-  min-height: 100px;
+  //min-height: 100px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 </style>

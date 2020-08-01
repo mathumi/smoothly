@@ -40,7 +40,7 @@ export default class SlideHeight extends Vue {
   childrenLength: number = 0;
 
   beforeEnter(el) {
-    el.style.opacity = 0;
+   el.style.opacity = 0;
   }
 
   // ------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ export default class SlideHeight extends Vue {
   //  Reset values
   // ------------------------------------------------------------------------------
   afterEnter(el) {
-    el.style.opacity = 1;
+    el.style.opacity = 1;   
     el.style.transition = '';
     window.setTimeout(() => {
       el.style.height = 'auto';
