@@ -50,15 +50,18 @@ export default class Translate extends Vue {
   translateX!: string;
   translateY!: string;
   list!: boolean;
+  delay!: number;
   timing = 0;
 
   beforeEnter(el) {
     el.style.transform = `translate(0,0)`;
+    if (this.list) {
+      const index = Array.from(el.parentElement.children).indexOf(el);
+      el.style.transitionDelay = `${index * this.delay}s`;
+    }
     el.style.transition = `transform 0.5s ease`;
   }
-  // ------------------------------------------------------------------------------
-  //  Animate div from 0px to its width
-  // ------------------------------------------------------------------------------
+
   enter(el) {
     let timing = 0.5;
     if (this.list) {

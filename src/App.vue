@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <button @click="toggle(1)">Toggle Height</button>
     <button @click="toggle(2)">Toggle Width</button>
     <button @click="toggle(3)">Toggle Size</button>
@@ -30,7 +30,8 @@
     </div>
 
     dajksdbja
-  </div>
+  </div> -->
+  <covid />
 </template>
 
 <script lang="ts">
@@ -42,6 +43,9 @@ import Scale from './slide/Scale.vue';
 import Fade from './slide/Fade.vue';
 import Translate from './slide/Translate.vue';
 
+//Examples
+import Covid from '@/examples/Covid.vue';
+
 @Component({
   name: 'App',
   components: {
@@ -49,7 +53,9 @@ import Translate from './slide/Translate.vue';
     SlideWidth,
     Scale,
     Fade,
-    Translate
+    Translate,
+    // Examples
+    Covid
   },
 })
 export default class App extends Vue {

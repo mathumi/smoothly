@@ -31,23 +31,32 @@ import Component from 'vue-class-component';
 
 @Component({
   name: 'slide-height',
-  props: ['list'],
+  props: {
+    list: {
+      type: Boolean,
+      default: false,
+    },
+    delay: {
+      type: Number,
+      default: 0.25,
+    },
+  },
 })
 export default class SlideHeight extends Vue {
   elHeight = 0;
   timing = 0;
   list!: boolean;
+  delay!:number;
   childrenLength: number = 0;
 
   beforeEnter(el) {
-   el.style.opacity = 0;
+    el.style.opacity = 0;
   }
 
   // ------------------------------------------------------------------------------
   //  Animate div from 0px to its height
   // ------------------------------------------------------------------------------
   enter(el) {
-    const index = Array.from(el.parentElement.children).indexOf(el);
     this.elHeight = el.clientHeight;
     el.style.height = 0;
     //el.style.display = 'none';
@@ -55,7 +64,8 @@ export default class SlideHeight extends Vue {
     timing = timing >= 0.4 ? timing : 0.4;
     el.style.transition = `opacity ${timing}s, height ${timing}s, padding ${timing}s, border ${timing}s`;
     if (this.list) {
-      el.style.transitionDelay = `${index * 0.25}s`;
+       const index = Array.from(el.parentElement.children).indexOf(el);
+      el.style.transitionDelay = `${index * this.delay}s`;
     }
     //el.style.display = '';
     setTimeout(() => {
@@ -66,7 +76,7 @@ export default class SlideHeight extends Vue {
   //  Reset values
   // ------------------------------------------------------------------------------
   afterEnter(el) {
-    el.style.opacity = 1;   
+    el.style.opacity = 1;
     el.style.transition = '';
     window.setTimeout(() => {
       el.style.height = 'auto';

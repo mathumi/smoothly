@@ -45,10 +45,11 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|gif|svg|eot|woff2|ttf|woff)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]',
+          esModule: false,
         },
       },
       {
