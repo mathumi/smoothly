@@ -28,6 +28,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import { debug } from 'console';
 
 @Component({
   name: 'slide-height',
@@ -46,11 +47,11 @@ export default class SlideHeight extends Vue {
   elHeight = 0;
   timing = 0;
   list!: boolean;
-  delay!:number;
+  delay!: number;
   childrenLength: number = 0;
 
   beforeEnter(el) {
-    el.style.opacity = 0;
+    //el.style.opacity = 0;
   }
 
   // ------------------------------------------------------------------------------
@@ -64,7 +65,7 @@ export default class SlideHeight extends Vue {
     timing = timing >= 0.4 ? timing : 0.4;
     el.style.transition = `opacity ${timing}s, height ${timing}s, padding ${timing}s, border ${timing}s`;
     if (this.list) {
-       const index = Array.from(el.parentElement.children).indexOf(el);
+      const index = Array.from(el.parentElement.children).indexOf(el);
       el.style.transitionDelay = `${index * this.delay}s`;
     }
     //el.style.display = '';

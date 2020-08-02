@@ -262,7 +262,8 @@ p:last-child {
     max-width: 100%;
     width: auto;
     background: transparent;
-    display: none;
+    display: block;
+    //display: none;
     &.show {
         display: block;
     }

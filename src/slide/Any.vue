@@ -30,15 +30,11 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component({
-  name: 'translate',
+  name: 'any',
   props: {
-    translateX: {
+    property: {
       type: String,
-      default: '',
-    },
-    translateY: {
-      type: String,
-      default: '',
+      default: 'all',
     },
     list: {
       type: Boolean,
@@ -50,37 +46,22 @@ import Component from 'vue-class-component';
     },
   },
 })
-export default class Translate extends Vue {
-  translateX!: string;
-  translateY!: string;
+export default class Any extends Vue {
+  timing = 0;
   list!: boolean;
   delay!: number;
-  timing = 0;
+  property!: string;
 
   beforeEnter(el) {
-    el.style.transform = `translate(0,0)`;
+    el.style.opacity = 0;
     if (this.list) {
       const index = Array.from(el.parentElement.children).indexOf(el);
       el.style.transitionDelay = `${index * this.delay}s`;
-    } else {
-      el.style.transitionDelay = `${this.delay}s`;
     }
-    el.style.transition = `transform 0.5s ease`;
+    el.style.transition = `${this.property} 0.5s ease`;
   }
 
-  enter(el) {
-    let timing = 0.5;
-   if (this.list) {
-      const index = Array.from(el.parentElement.children).indexOf(el);
-      el.style.transitionDelay = `${index * this.delay}s`;
-    } else {
-      el.style.transitionDelay = `${this.delay}s`;
-    }
-    setTimeout(() => {
-      el.style.transform = `translate(${this.translateX || 0},${this
-        .translateY || 0})`;
-    }, 20);
-  }
+  enter(el) {}
   // ------------------------------------------------------------------------------
   //  Reset values
   // ------------------------------------------------------------------------------
@@ -89,23 +70,14 @@ export default class Translate extends Vue {
   }
 
   beforeLeave(el) {
-    el.style.transform = 'scale(1)';
-    el.style.transition = `transform 0.5s ease`;
+    el.style.opacity = 1;
   }
 
-  leave(el) {
-    setTimeout(() => {
-      el.style.transform = 'scale(0)';
-    }, 10);
-  }
+  leave(el) {}
 
-  // ------------------------------------------------------------------------------
-  //  Reset values
-  // ------------------------------------------------------------------------------
   afterLeave(el) {
     window.setTimeout(() => {
-      el.style.transform = '';
-      el.style.transition = '';
+      el.style.opacity = 0;
     });
   }
 }
