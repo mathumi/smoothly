@@ -1,0 +1,16 @@
+body {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-size: $fs_body;
+    font-weight: $weight_normal;
+    min-height: 100vh;
+    margin: 0;
+}
+
+a {
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}

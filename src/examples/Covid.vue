@@ -79,10 +79,10 @@
           <!-- section 1 -->
           <section
             id="tm-section-1"
-            v-show="active === 'tm-section-1'"
             class="tm-section"
           >
-            <translate translateY="-30px" :delay="1">
+            <translate translateY="-30px">
+              <div  v-show="active === 'tm-section-1'">
               <div class="ml-auto">
                 <header class="mb-4">
                   <h1 class="tm-text-shadow">Constructive Design</h1>
@@ -100,8 +100,8 @@
                 >
                 <!-- data-nav-link holds the ID of nav item, which means this link should behave the same as that nav item  -->
               </div>
+              </div>
             </translate>
-
           </section>
 
           <!-- section 2 -->
@@ -342,7 +342,7 @@ import Component from 'vue-class-component';
 import Fade from '@/slide/Fade.vue';
 import Any from '@/slide/Any.vue';
 import SlideHeight from '@/slide/SlideHeight.vue';
-import Translate from '@/slide/Translate.vue'
+import Translate from '@/slide/Translate.vue';
 
 @Component({
   name: 'Covid',
@@ -364,7 +364,9 @@ export default class Covid extends Vue {
     const bgImg =
       e.target.getAttribute('data-bg-img') ||
       e.target.parentNode.getAttribute('data-bg-img');
+      if(bgImg){
     this.bgImg = require(`@/examples/img/${bgImg}`);
+      }
     this.active = section;
   }
 }

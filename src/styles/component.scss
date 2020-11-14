@@ -1,0 +1,99 @@
+// Typography
+.heading1 {
+    font-size: $fs_h1;
+}
+.heading2 {
+    font-size: $fs_h2;
+}
+.heading3 {
+    font-size: $fs_h3;
+}
+.heading4 {
+    font-size: $fs_h4;
+}
+.tiny {
+    font-size: $fs_tiny;
+}
+.caption {
+    font-size: $fs_caption;
+}
+.body {
+    font-size: $fs_body;
+}
+.lead {
+    font-size: $fs_lead;
+}
+.super {
+    font-size: $fs_super;
+}
+.hero {
+    font-size: $fs_hero;
+}
+
+// Button
+.button {
+    border-radius: $radius_st;
+    font-weight: $weight_medium;
+    cursor: pointer;
+    text-shadow: none;
+    font-size: $fs_lead;
+    padding: $space_sm $space_md;
+    display: inline-block;
+    color: $base_text;
+    border: 1px solid currentColor;
+    background: white;
+    box-shadow: none;
+    &-- {
+        &curve {
+            border-radius: 55px;
+        }
+
+        &primary {
+            background: $primary_bg;
+            color: white;
+            border-color: $primary_bg;
+        }
+
+        &st {
+            padding: $space_xs $space_sm;
+            font-size: $fs_body;
+        }
+
+        &sm {
+            padding: $space_mi $space_sm;
+        }
+    }
+
+    &:hover {
+        background: $primary_bg;
+        color: white;
+        border-color: $primary_bg;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 20, 0.08), 0 2px 4px 0 rgba(0, 0, 20, 0.08);
+    }
+}
+
+.c-primary {
+    color: $primary;
+}
+
+.c-primary-bg {
+    color: $primary_bg;
+}
+
+
+
+//Color
+.muted {
+    color: $muted;
+}
+
+.link {
+    color: $link;
+}
+
+.demo {
+  background: $grey_bg;
+  padding: $space_st;
+  border-radius: $radius_lg;  
+  transition: all 0.5s ease;
+} 

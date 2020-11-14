@@ -28,7 +28,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { debug } from 'console';
+import { computedBoxProperties } from '@/utils/dom';
+import { parse } from 'querystring';
 
 @Component({
   name: 'slide-height',
@@ -41,62 +42,78 @@ import { debug } from 'console';
       type: Number,
       default: 0.25,
     },
+    hideTillDelay: {
+      type: Boolean,
+      default: true,
+    },
+    duration: {
+      type: Number,
+      default: 0.5,
+    },
   },
 })
 export default class SlideHeight extends Vue {
-  elHeight = 0;
-  timing = 0;
   list!: boolean;
   delay!: number;
   childrenLength: number = 0;
-
+  hideTillDelay!: boolean;
+  duration!: number;
   beforeEnter(el) {
-    //el.style.opacity = 0;
+    this.hideTillDelay && (el.style.opacity = 0);
   }
 
   // ------------------------------------------------------------------------------
   //  Animate div from 0px to its height
   // ------------------------------------------------------------------------------
   enter(el) {
-    this.elHeight = el.clientHeight;
-    el.style.height = 0;
+    const computedProperties = computedBoxProperties(el);
+    el.style.overflow = 'hidden';
+    el.style.paddingTop = el.style.paddingBottom = el.style.height = 0;
     //el.style.display = 'none';
-    let timing = this.elHeight / 1000;
-    timing = timing >= 0.4 ? timing : 0.4;
-    el.style.transition = `opacity ${timing}s, height ${timing}s, padding ${timing}s, border ${timing}s`;
     if (this.list) {
       const index = Array.from(el.parentElement.children).indexOf(el);
       el.style.transitionDelay = `${index * this.delay}s`;
     }
-    //el.style.display = '';
+
+    let timing =
+      this.duration || parseInt(computedProperties)['height'] / 1000;
+    timing = timing >= 0.6 ? timing : 0.6;
+
     setTimeout(() => {
-      el.style.height = this.elHeight;
-    }, 10);
+      el.style.opacity = 1;
+      el.style.transition = `height ${timing}s, padding-top ${timing}s, padding-bottom ${timing}s, opacity ${timing}s`;
+      ['height', 'paddingTop', 'paddingBottom'].forEach((prop) => {
+        el.style[prop] = computedProperties[prop];
+      });
+    });
   }
   // ------------------------------------------------------------------------------
   //  Reset values
   // ------------------------------------------------------------------------------
   afterEnter(el) {
-    el.style.opacity = 1;
-    el.style.transition = '';
+    el.style.opacity = '';
     window.setTimeout(() => {
-      el.style.height = 'auto';
+      this.reset(el);
     }, 100);
   }
 
-  beforeLeave(el) {
-    el.style.opacity = 0;
-    this.elHeight = el.clientHeight;
-    el.style.height = this.elHeight;
-    let timing = this.elHeight / 1000;
-    timing = timing >= 0.4 ? timing : 0.4;
-    el.style.transition = `opacity ${timing}s, height ${timing}s, padding ${timing}s, border ${timing}s`;
-  }
+  beforeLeave(el) {}
 
   leave(el) {
+    const computedProperties = computedBoxProperties(el);
+
+    el.style.overflow = 'hidden';
+    el.style.height = parseInt(computedProperties['height']);
+
+    let timing =
+      this.duration || parseInt(computedProperties['height']) / 1000;
+    timing = timing >= 0.6 ? timing : 0.6;
+
     setTimeout(() => {
-      el.style.height = 0;
-    }, 10);
+      el.style.transition = `height ${timing}s, padding-top ${timing}s, padding-bottom ${timing}s, opacity ${timing}s`;
+      el.style.paddingTop = el.style.paddingBottom = 0;
+      el.style.height = 1;
+    });
   }
 
   // ------------------------------------------------------------------------------
@@ -104,11 +121,17 @@ export default class SlideHeight extends Vue {
   // ------------------------------------------------------------------------------
   afterLeave(el) {
     window.setTimeout(() => {
-      el.style.height = 'auto';
-      el.style.opacity = 0;
-      el.style.transition = '';
-      el.style.display = '';
+      this.reset(el);
     });
+  }
+
+  reset(el) {
+    el.style.height = '';
+    el.style.opacity = '';
+    el.style.transition = '';
+    el.style.overflow = '';
+    el.style.paddingTop = '';
+    el.style.paddingBottom = '';
   }
 }
 </script>

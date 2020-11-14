@@ -31,7 +31,7 @@
 
     dajksdbja
   </div> -->
-  <covid />
+  <Index />
 </template>
 
 <script lang="ts">
@@ -42,9 +42,7 @@ import SlideWidth from './slide/SlideWidth.vue';
 import Scale from './slide/Scale.vue';
 import Fade from './slide/Fade.vue';
 import Translate from './slide/Translate.vue';
-
-//Examples
-import Covid from '@/examples/Covid.vue';
+import Index from './examples/Index.vue';
 
 @Component({
   name: 'App',
@@ -54,8 +52,7 @@ import Covid from '@/examples/Covid.vue';
     Scale,
     Fade,
     Translate,
-    // Examples
-    Covid
+    Index,
   },
 })
 export default class App extends Vue {
@@ -90,23 +87,3 @@ export default class App extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-.card {
-  padding: 8px 16px;
-  min-width: 80px;
-  //min-height: 100px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-</style>
-
-<style lang="scss">
-* {
-  box-sizing: border-box;
-}
-.flex {
-  display: flex;
-}
-.mb--st {
-  margin-bottom: 20px;
-}
-</style>

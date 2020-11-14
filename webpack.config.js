@@ -20,6 +20,7 @@ module.exports = {
     hotClient: true,
     port: 9000,
   },
+  
   module: {
     rules: [
       {
@@ -50,11 +51,16 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]',
           esModule: false,
-        },
+        }, 
       },
       {
         test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader'],
+        use: ['vue-style-loader', 'css-loader', 'sass-loader', {
+          loader: 'sass-resources-loader',
+          options: {
+              resources: './src/styles/tokens.scss'
+          }
+        }],
       },
     ],
   },

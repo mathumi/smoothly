@@ -38,42 +38,50 @@ import Component from 'vue-class-component';
     },
     delay: {
       type: Number,
-      default: 0.25,
+    },
+    duration: {
+      type: Number,
+      default: 0.5,
     },
   },
 })
 export default class Fade extends Vue {
   timing = 0;
   list!: boolean;
+  duration!: number;
   delay!: number;
 
   beforeEnter(el) {
     el.style.opacity = 0;
     if (this.list) {
       const index = Array.from(el.parentElement.children).indexOf(el);
-      el.style.transitionDelay = `${index * this.delay}s`;
+      el.style.transitionDelay = `${index * this.delay * 1000}s`;
     }
-    el.style.transition = `transform 0.5s ease`;
+    el.style.transition = `opacity ${this.duration}s ease`;
   }
 
-  enter(el) {}
+  enter(el) {
+    setTimeout(() => {
+      el.style.opacity = 1;
+    }, this.delay * 1000 || 0);
+  }
   // ------------------------------------------------------------------------------
   //  Reset values
   // ------------------------------------------------------------------------------
   afterEnter(el) {
-    el.style.opacity = 1;
+    
   }
 
   beforeLeave(el) {
     el.style.opacity = 1;
   }
 
-  leave(el) {}
-
-  afterLeave(el) {
+  leave(el) {
     window.setTimeout(() => {
       el.style.opacity = 0;
     });
   }
+
+  afterLeave(el) {}
 }
 </script>

@@ -40,6 +40,10 @@ import Component from 'vue-class-component';
       type: Boolean,
       default: false,
     },
+    duration: {
+      type: Number,
+      default: 0.25,
+    },
     delay: {
       type: Number,
       default: 0.25,
@@ -47,7 +51,8 @@ import Component from 'vue-class-component';
   },
 })
 export default class Any extends Vue {
-  timing = 0;
+  duration!:number;
+  timing = this.duration;
   list!: boolean;
   delay!: number;
   property!: string;
@@ -58,7 +63,7 @@ export default class Any extends Vue {
       const index = Array.from(el.parentElement.children).indexOf(el);
       el.style.transitionDelay = `${index * this.delay}s`;
     }
-    el.style.transition = `${this.property} 0.5s ease`;
+    el.style.transition = `${this.property} ${this.duration}s ease`;
   }
 
   enter(el) {}

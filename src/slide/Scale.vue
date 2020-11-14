@@ -34,7 +34,7 @@ import Component from 'vue-class-component';
   props: {
     transformOrigin: {
       type: String,
-      default: 'top center',
+      default: 'top left',
     },
     list: {
       type: Boolean,
@@ -61,7 +61,7 @@ export default class Scale extends Vue {
     el.style.transition = `transform 0.5s ease`;
     el.style.transformOrigin = this.transformOrigin;
   }
-  // ------------------------------------------------------------------------------
+  // -------  -----------------------------------------------------------------------
   //  Animate size from 0px to its width
   // ------------------------------------------------------------------------------
   enter(el) {
