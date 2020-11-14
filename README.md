@@ -1,1 +1,3 @@
 # smoothly
+
+Awesome animation library
