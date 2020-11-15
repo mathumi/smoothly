@@ -78,7 +78,7 @@ export default class SlideWidth extends Vue {
       ['width', 'paddingRight', 'paddingLeft'].forEach((prop) => {
         el.style[prop] = computedProperties[prop];
       });
-    }, 10);
+    });
   }
   // ------------------------------------------------------------------------------
   //  Reset values
@@ -87,7 +87,7 @@ export default class SlideWidth extends Vue {
      el.style.opacity = '';
     window.setTimeout(() => {
       this.reset(el);
-    }, 100);
+    });
   }
 
   beforeLeave(){}

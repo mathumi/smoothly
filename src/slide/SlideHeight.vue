@@ -1,24 +1,18 @@
 <template>
   <transition
     v-if="!list"
-    appear
     @before-enter="beforeEnter"
     @enter="enter"
     mode="out-in"
-    @after-enter="afterEnter"
-    @after-leave="afterLeave"
     @leave="leave"
     @before-leave="beforeLeave"
     ><slot></slot
   ></transition>
   <transition-group
     v-else
-    appear
     @before-enter="beforeEnter"
     @enter="enter"
     mode="out-in"
-    @after-enter="afterEnter"
-    @after-leave="afterLeave"
     @leave="leave"
     @before-leave="beforeLeave"
     ><slot></slot
@@ -69,32 +63,37 @@ export default class SlideHeight extends Vue {
     const computedProperties = computedBoxProperties(el);
     el.style.overflow = 'hidden';
     el.style.paddingTop = el.style.paddingBottom = el.style.height = 0;
+
     //el.style.display = 'none';
     if (this.list) {
       const index = Array.from(el.parentElement.children).indexOf(el);
       el.style.transitionDelay = `${index * this.delay}s`;
     }
 
-    let timing =
-      this.duration || parseInt(computedProperties)['height'] / 1000;
-    timing = timing >= 0.6 ? timing : 0.6;
-
+    let timing = this.duration || parseInt(computedProperties['height']) / 1000;
+   //timing = timing >= 0.6 ? timing : 0.6;
     setTimeout(() => {
       el.style.opacity = 1;
       el.style.transition = `height ${timing}s, padding-top ${timing}s, padding-bottom ${timing}s, opacity ${timing}s`;
-      ['height', 'paddingTop', 'paddingBottom'].forEach((prop) => {
+      ['height', 'paddingTop', 'paddingBottom'].forEach(prop => {
         el.style[prop] = computedProperties[prop];
       });
+      el.addEventListener('transitionend', this.afterEnter);
     });
   }
   // ------------------------------------------------------------------------------
   //  Reset values
   // ------------------------------------------------------------------------------
-  afterEnter(el) {
-    el.style.opacity = '';
+  afterEnter(event) {
+    const el = event.target;
+    if (!el) {
+      return;
+    }
     window.setTimeout(() => {
+      el.style.opacity = '';
       this.reset(el);
-    }, 100);
+      el.removeEventListener('transitionend', this.afterEnter);
+    });
   }
 
   beforeLeave(el) {}
@@ -103,25 +102,32 @@ export default class SlideHeight extends Vue {
     const computedProperties = computedBoxProperties(el);
 
     el.style.overflow = 'hidden';
-    el.style.height = parseInt(computedProperties['height']);
+    el.style.height = computedProperties['height'];
+    console.log(el.style.height);
 
-    let timing =
-      this.duration || parseInt(computedProperties['height']) / 1000;
+    let timing = this.duration || computedProperties['height'] / 1000;
     timing = timing >= 0.6 ? timing : 0.6;
 
     setTimeout(() => {
       el.style.transition = `height ${timing}s, padding-top ${timing}s, padding-bottom ${timing}s, opacity ${timing}s`;
       el.style.paddingTop = el.style.paddingBottom = 0;
-      el.style.height = 1;
+      el.style.height = '1px';
     });
+    el.addEventListener('transitionend', this.afterLeave);
   }
 
   // ------------------------------------------------------------------------------
   //  Reset values
   // ------------------------------------------------------------------------------
-  afterLeave(el) {
+  afterLeave(event) {
+    const el = event.target;
+    if (!el) {
+      return;
+    }
     window.setTimeout(() => {
+      el.style.opacity = '';
       this.reset(el);
+      el.removeEventListener('transitionend', this.afterLeave);
     });
   }
 
@@ -136,7 +142,7 @@ export default class SlideHeight extends Vue {
 }
 </script>
 
-//
+
 <style lang="scss" scoped>
 // .slide-list {
 //   $total: var(--total);
