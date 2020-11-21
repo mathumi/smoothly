@@ -62,7 +62,8 @@ export default class SlideWidth extends Vue {
   // ------------------------------------------------------------------------------
   enter(el) {
     const computedProperties = computedBoxProperties(el);
-    el.style.width = el.style.paddingLeft = el.style.paddingRight = 0;
+     el.style.paddingLeft = el.style.paddingRight = 0;
+     el.style.width = "1px";
     el.style.overflow = 'hidden';
     let timing = this.duration || parseInt(computedProperties)['width'] / 1000;
 
@@ -71,13 +72,12 @@ export default class SlideWidth extends Vue {
       const index = Array.from(el.parentElement.children).indexOf(el);
       el.style.transitionDelay = `${index * this.delay}s`;
     }
-    el.style.display = '';
+    el.style.transition = `width ${timing}s, padding-right ${timing}s, padding-left ${timing}s, opacity ${timing}s`;
     setTimeout(() => {
        el.style.opacity = 1;
-      el.style.transition = `width ${timing}s, padding-right ${timing}s, padding-left ${timing}s, opacity ${timing}s`;
       ['width', 'paddingRight', 'paddingLeft'].forEach((prop) => {
         el.style[prop] = computedProperties[prop];
-      });
+      },300);
     });
   }
   // ------------------------------------------------------------------------------
@@ -100,12 +100,11 @@ export default class SlideWidth extends Vue {
     let timing =
       this.duration || parseInt(computedProperties['width']) / 1000;
     timing = timing >= 0.6 ? timing : 0.6;
-
+   el.style.transition = `width ${timing}s, padding-left ${timing}s, padding-right ${timing}s, opacity ${timing}s`;
     setTimeout(() => {
-      el.style.transition = `width ${timing}s, padding-left ${timing}s, padding-right ${timing}s, opacity ${timing}s`;
       el.style.paddingLeft = el.style.paddingRight = 0;
-      el.style.width = 1;
-    });
+      el.style.width = "1px";
+    },300);
   }
 
   // ------------------------------------------------------------------------------

@@ -12,6 +12,10 @@ export const animations  = [
         name: 'fade'
     },
     {
+        displayName: 'Toggle',
+        name: 'toggle'
+    },
+    {
         displayName: 'Scale',
         name: 'scale'
     },

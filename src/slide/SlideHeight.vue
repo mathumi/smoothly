@@ -72,14 +72,14 @@ export default class SlideHeight extends Vue {
 
     let timing = this.duration || parseInt(computedProperties['height']) / 1000;
    //timing = timing >= 0.6 ? timing : 0.6;
+    el.style.transition = `height ${timing}s, padding-top ${timing}s, padding-bottom ${timing}s, opacity ${timing}s`;
     setTimeout(() => {
       el.style.opacity = 1;
-      el.style.transition = `height ${timing}s, padding-top ${timing}s, padding-bottom ${timing}s, opacity ${timing}s`;
       ['height', 'paddingTop', 'paddingBottom'].forEach(prop => {
         el.style[prop] = computedProperties[prop];
       });
       el.addEventListener('transitionend', this.afterEnter);
-    });
+    }, 200);
   }
   // ------------------------------------------------------------------------------
   //  Reset values
@@ -107,12 +107,11 @@ export default class SlideHeight extends Vue {
 
     let timing = this.duration || computedProperties['height'] / 1000;
     timing = timing >= 0.6 ? timing : 0.6;
-
+     el.style.transition = `height ${timing}s, padding-top ${timing}s, padding-bottom ${timing}s, opacity ${timing}s`;
     setTimeout(() => {
-      el.style.transition = `height ${timing}s, padding-top ${timing}s, padding-bottom ${timing}s, opacity ${timing}s`;
       el.style.paddingTop = el.style.paddingBottom = 0;
       el.style.height = '1px';
-    });
+    },100);
     el.addEventListener('transitionend', this.afterLeave);
   }
 

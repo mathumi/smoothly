@@ -33,6 +33,7 @@ import SlideHeightExample from '@/examples/components/SlideHeightExample.vue';
 import SlideWidthExample from '@/examples/components/SlideWidthExample.vue';
 import ScaleExample from '@/examples/components/ScaleExample.vue';
 import TranslateExample from '@/examples/components/TranslateExample.vue';
+import ToggleExample from '@/examples/components/ToggleExample.vue';
 
 @Component({
   name: 'PlayGround',
@@ -44,7 +45,8 @@ import TranslateExample from '@/examples/components/TranslateExample.vue';
     SlideHeightExample,
     SlideWidthExample,
     ScaleExample,
-    TranslateExample
+    TranslateExample,
+    ToggleExample
   },
 })
 export default class PlayGround extends Vue {
@@ -69,6 +71,8 @@ export default class PlayGround extends Vue {
         return 'ScaleExample';
       case 'translate':
         return 'TranslateExample';
+      case 'toggle':
+        return 'ToggleExample';
       default:
         return 'FadeExample'
     }
